@@ -23,6 +23,7 @@
     <ProjectGuid>{A0588B81-268B-4208-AFA8-21A0A9967D7E}</ProjectGuid>
     <RootNamespace>HomoMaII</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>P1</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -111,6 +112,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CMyVektor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CMyVektor.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
