@@ -26,7 +26,7 @@ int main()
 	myVec.Set(0, 3);
 	myVec.Set(1, 4);
 	cout << "Length: " << myVec.GetLength() << endl;
-	CMyVektor newVec = myVec.gradient();
+	CMyVektor newVec = myVec.gradient(&f);
 	newVec.print();
 	system("PAUSE");
 }
