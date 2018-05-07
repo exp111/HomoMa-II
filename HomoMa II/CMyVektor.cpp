@@ -11,6 +11,15 @@ CMyVektor::~CMyVektor()
 {
 }
 
+void CMyVektor::SetDimension(unsigned dimension)
+{
+	if (this->dimension == dimension)
+		return;
+
+	this->dimension = dimension;
+	values.resize(dimension);
+}
+
 unsigned CMyVektor::GetDimension()
 {
 	return dimension;
@@ -59,20 +68,22 @@ CMyVektor CMyVektor::append(CMyVektor b)
 
 CMyVektor CMyVektor::operator+(CMyVektor b)
 {
+	CMyVektor newVec = CMyVektor(dimension);
 	for (int i = 0; i < dimension; i++)
 	{
-		values[i] += b.Get(i);
+		newVec.Set(i, values[i] + b.Get(i));
 	}
-	return *this;
+	return newVec;
 }
 
 CMyVektor CMyVektor::operator*(double lambda)
 {
+	CMyVektor newVec = CMyVektor(dimension);
 	for (int i = 0; i < dimension; i++)
 	{
-		values[i] *= lambda;
+		newVec.Set(i, values[i] * lambda);
 	}
-	return *this;
+	return newVec;
 }
 
 void CMyVektor::print()
@@ -83,14 +94,24 @@ void CMyVektor::print()
 	}
 }
 
-CMyVektor CMyVektor::gradient(double(*funktion)(CMyVektor x))
+string CMyVektor::ToString()
 {
-	CMyVektor backup = CMyVektor(*this);
+	string ret = "(";
 	for (int i = 0; i < dimension; i++)
 	{
-		CMyVektor newVec = CMyVektor(*this);
-		newVec.Set(i, newVec.Get(i) + h);
-		values[i] =  (funktion(newVec) - funktion(backup)) / h;
+		ret += " " + to_string(values[i]) + ";";
+	}
+	ret.pop_back();
+	ret += ");";
+	return ret;
+}
+
+CMyVektor CMyVektor::operator=(CMyVektor b)
+{
+	this->SetDimension(b.GetDimension());
+	for (int i = 0; i < dimension; i++)
+	{
+		values[i] = b.Get(i);
 	}
 	return *this;
 }
