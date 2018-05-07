@@ -9,6 +9,8 @@ class CMyVektor
 private:
 	vector<double> values;
 	unsigned dimension = 0;
+
+	const double h = 0.00000001;
 public:
 	CMyVektor(unsigned dimension);
 	~CMyVektor();
@@ -20,5 +22,7 @@ public:
 	double GetLength();
 	CMyVektor append(CMyVektor b);	CMyVektor operator+(CMyVektor b);	CMyVektor operator*(double lambda);
 	void print();
+
+	CMyVektor gradient(double(*function)(CMyVektor x));
 };
 

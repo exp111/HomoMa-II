@@ -82,3 +82,14 @@ void CMyVektor::print()
 		cout << i << ": " << values[i] << endl;
 	}
 }
+
+CMyVektor CMyVektor::gradient(double(*funktion)(CMyVektor x))
+{
+	for (int i = 0; i < dimension; i++)
+	{
+		//TODO: fix this shit
+		double cur = values[i];
+		values[i] = (funktion(cur + h) - funktion(cur)) / h;
+	}
+	return *this;
+}
