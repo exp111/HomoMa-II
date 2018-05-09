@@ -20,7 +20,7 @@ double g(CMyVektor a)
 }
 
 const double h = 0.00000001;
-void gradientenverfahren(CMyVektor a, double(*function)(CMyVektor x), double lambda);
+void gradientenverfahren(CMyVektor a, double(*function)(CMyVektor x), double lambda = 1.0);
 
 int main()
 {
@@ -36,16 +36,17 @@ int main()
 CMyVektor gradient(CMyVektor x, double(*funktion)(CMyVektor x))
 {
 	CMyVektor backup = x;
+	double backupX = funktion(x);
 	for (int i = 0; i < x.GetDimension(); i++)
 	{
 		CMyVektor newVec = backup;
 		newVec.Set(i, newVec.Get(i) + h);
-		x.Set(i, (funktion(newVec) - funktion(backup)) / h);
+		x.Set(i, (funktion(newVec) - backupX) / h);
 	}
 	return x;
 }
 
-void gradientenverfahren(CMyVektor a, double(*function)(CMyVektor x), double halfLife3 = 1.0)
+void gradientenverfahren(CMyVektor a, double(*function)(CMyVektor x), double halfLife3)
 {
 	CMyVektor x = a;
 	double lambda = halfLife3;

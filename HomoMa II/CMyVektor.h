@@ -11,11 +11,13 @@ class CMyVektor
 private:
 	vector<double> values;
 	unsigned dimension = 0;
+
+	void SetDimension(unsigned dimension);
 public:
 	CMyVektor(unsigned dimension);
 	~CMyVektor();
 
-	void SetDimension(unsigned dimension);
+	
 	unsigned GetDimension();
 	double Get(unsigned at);
 	bool Set(unsigned at, double value);
