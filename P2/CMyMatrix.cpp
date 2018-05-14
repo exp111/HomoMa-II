@@ -3,7 +3,7 @@
 CMyMatrix::CMyMatrix(unsigned m, unsigned n)
 {
 	values.resize(m);
-	for (auto value : values)
+	for (auto &value : values)
 	{
 		value.resize(n);
 	}
@@ -17,7 +17,7 @@ CMyMatrix::~CMyMatrix()
 
 double CMyMatrix::Get(unsigned m, unsigned n)
 {
-	if (m > this->dimM || n > this->dimN)
+	if (m > this->dimM - 1 || n > this->dimN - 1)
 		return 0.0;
 	
 	return values[m][n];
@@ -25,7 +25,7 @@ double CMyMatrix::Get(unsigned m, unsigned n)
 
 bool CMyMatrix::Set(unsigned m, unsigned n, double value)
 {
-	if (m > this->dimM || n > this->dimN)
+	if (m > this->dimM - 1 || n > this->dimN - 1)
 		return false;
 
 	values[m][n] = value;
@@ -44,7 +44,7 @@ unsigned CMyMatrix::GetDimN()
 
 CMyMatrix CMyMatrix::invers()
 {
-	if (this->dimM != 2 && this->dimN != 2)
+	if (this->dimM != 2 || this->dimN != 2)
 	{
 		//Fehlermeldung und dann quitten
 		cout << "Error: Wrong Dimensions!" << endl;
@@ -87,10 +87,9 @@ CMyVektor operator*(CMyMatrix A, CMyVektor x)
 	for (int m = 0; m < A.GetDimM(); m++)
 	{
 		double value = 0;
-		double current = x.Get(m);
-		for (int n = 0; n < A.GetDimN(); m++)
+		for (int n = 0; n < A.GetDimN(); n++)
 		{
-			value += A.Get(m, n) * current;
+			value += A.Get(m, n) * x.Get(n);
 		}
 		neu.Set(m, value);
 	}
