@@ -154,13 +154,26 @@ void newtonVerfahren(CMyVektor x, CMyVektor(*funktion)(CMyVektor x))
 		jacobiM = jacobiM.invers();
 		cout << " f'(x)^(-1) = " << endl << jacobiM.ToString() << endl;
 
-		CMyVektor dx = jacobiM * neuX;
+		CMyVektor dx = jacobiM * fNeuX * -1;
 		cout << "dx = " << dx.ToString() << endl;
-		neuX = dx * -1 + neuX;
+		cout << "||f(x)|| = " << fNeuXLength << endl;
+
+		neuX = neuX + dx;
 		fNeuX = funktion(neuX);
 		fNeuXLength = fNeuX.GetLength();
-		cout << "||f(x)|| = " << fNeuXLength << endl;
 
 		counter++;
 	} while (fNeuXLength > 10e-5 && counter < 50);
+
+	if (counter >= 50)
+	{
+		cout << endl << "Ende wegen Schrittanzahl = 50 bei" << endl;
+	}
+	else
+	{
+		cout << endl << "Ende wegen ||f(x)||<1e-5 bei" << endl;
+	}
+	cout << "x = " << neuX.ToString() << endl;
+	cout << "f(x) = " << fNeuX.ToString() << endl;
+	cout << "||f(x)|| = " << fNeuXLength << endl;
 }
