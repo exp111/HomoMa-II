@@ -30,5 +30,7 @@ public:
 	string ToString();
 
 	CMyVektor operator=(CMyVektor b);
+
+	double operator[](unsigned at);
 };
 

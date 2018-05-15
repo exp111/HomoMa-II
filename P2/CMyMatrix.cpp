@@ -96,3 +96,24 @@ CMyVektor operator*(CMyMatrix A, CMyVektor x)
 
 	return neu;
 }
+
+CMyMatrix jacobi(CMyVektor x, CMyVektor(*funktion)(CMyVektor x))
+{
+	static const double h = 10e-4;
+	CMyVektor neuVek = funktion(x);
+	CMyMatrix neu = CMyMatrix(x.GetDimension(), neuVek.GetDimension());
+
+	for (int i = 0; i < neuVek.GetDimension(); i++)
+	{
+		double backupX = neuVek[i];
+
+		for (int j = 0; j < x.GetDimension(); j++)
+		{
+			CMyVektor newVec = x;
+			newVec.Set(j, newVec[j] + h);
+			CMyVektor fXH = funktion(newVec);
+			neu.Set(i, j, (fXH[i] - backupX) / h);
+		}
+	}
+	return neu;
+}

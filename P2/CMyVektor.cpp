@@ -115,3 +115,8 @@ CMyVektor CMyVektor::operator=(CMyVektor b)
 	}
 	return *this;
 }
+
+double CMyVektor::operator[](unsigned at)
+{
+	return this->values[at];
+}
