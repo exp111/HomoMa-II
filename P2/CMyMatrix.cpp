@@ -114,7 +114,7 @@ CMyVektor operator*(CMyMatrix A, CMyVektor x)
 
 CMyMatrix jacobi(CMyVektor x, CMyVektor(*funktion)(CMyVektor x))
 {
-	static const double h = 10e-4;
+	static const double h = 1e-4;
 	CMyVektor neuVek = funktion(x);
 	CMyMatrix neu = CMyMatrix(x.GetDimension(), neuVek.GetDimension());
 
