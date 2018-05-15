@@ -21,7 +21,10 @@ public:
 	unsigned GetDimN();
 
 	CMyMatrix invers();
+
+	string ToString();
 };
 
 CMyVektor operator*(CMyMatrix A, CMyVektor x);
 CMyMatrix jacobi(CMyVektor x, CMyVektor(*funktion)(CMyVektor x));
+void newtonVerfahren(CMyVektor x, CMyVektor(*funktion)(CMyVektor x));

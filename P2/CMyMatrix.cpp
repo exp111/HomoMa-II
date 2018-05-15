@@ -57,7 +57,7 @@ CMyMatrix CMyMatrix::invers()
 	double d = Get(1, 1);
 
 
-	double datBoi = a*b - d*c;
+	double datBoi = a*d - b*c;
 	if (datBoi == 0)
 	{
 		//Fehlermeldung und dann quitten
@@ -75,6 +75,21 @@ CMyMatrix CMyMatrix::invers()
 	changed.Set(1, 1, mod * a);
 
 	return changed;
+}
+
+string CMyMatrix::ToString()
+{
+	string ret = "(";
+	for (int m = 0; m < this->GetDimM(); m++)
+	{
+		for (int n = 0; n < this->GetDimN(); n++)
+		{
+			ret += " " + to_string(Get(m, n)) + ";";
+		}
+		ret += "\n";
+	}
+	ret.pop_back();
+	return ret + ")";
 }
 
 CMyVektor operator*(CMyMatrix A, CMyVektor x)
@@ -116,4 +131,36 @@ CMyMatrix jacobi(CMyVektor x, CMyVektor(*funktion)(CMyVektor x))
 		}
 	}
 	return neu;
+}
+
+void newtonVerfahren(CMyVektor x, CMyVektor(*funktion)(CMyVektor x))
+{
+	if (x.GetDimension() != 2)
+		return;
+
+	CMyVektor neuX = x;
+	CMyVektor fNeuX = funktion(x);
+	double fNeuXLength = fNeuX.GetLength();
+
+	int counter = 0;
+	do
+	{
+		cout << endl << "Schritt " << counter << ":" << endl;
+		cout << "x = " << neuX.ToString() << endl;
+		cout << "f(x) = " << fNeuX.ToString() << endl;
+
+		CMyMatrix jacobiM = jacobi(neuX, funktion);
+		cout << " f'(x) = " << endl << jacobiM.ToString() << endl;
+		jacobiM = jacobiM.invers();
+		cout << " f'(x)^(-1) = " << endl << jacobiM.ToString() << endl;
+
+		CMyVektor dx = jacobiM * neuX;
+		cout << "dx = " << dx.ToString() << endl;
+		neuX = dx * -1 + neuX;
+		fNeuX = funktion(neuX);
+		fNeuXLength = fNeuX.GetLength();
+		cout << "||f(x)|| = " << fNeuXLength << endl;
+
+		counter++;
+	} while (fNeuXLength > 10e-5 && counter < 50);
 }
