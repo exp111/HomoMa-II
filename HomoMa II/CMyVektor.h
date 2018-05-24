@@ -32,3 +32,5 @@ public:
 	CMyVektor operator=(CMyVektor b);
 };
 
+CMyVektor gradient(CMyVektor x, double(*funktion)(CMyVektor x));
+void gradientenverfahren(CMyVektor a, double(*function)(CMyVektor x), double lambda = 1.0);
