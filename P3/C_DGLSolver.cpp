@@ -49,11 +49,11 @@ C_DGLSolver::~C_DGLSolver()
 {
 }
 
-void C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
+CMyVektor C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
 {
 	//euler
 	if (!_istDGLhoehererOrdnung &&_fDGLSystem == nullptr || _istDGLhoehererOrdnung && _fDGLnterOrdnung == nullptr)
-		return;
+		return CMyVektor(0);
 
 	double h = (double)(xEnd - xStart) / schritte;
 
@@ -80,18 +80,47 @@ void C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVektor y
 	cout << "x = " << x << endl;
 	cout << "y = " << y.ToString() << endl;
 	
+	return y;
 }
 
-void C_DGLSolver::heunVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
+CMyVektor C_DGLSolver::heunVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
 {
 	//TODO:Heun
-	if (_istDGLhoehererOrdnung)
+	if (!_istDGLhoehererOrdnung &&_fDGLSystem == nullptr || _istDGLhoehererOrdnung && _fDGLnterOrdnung == nullptr)
+		return CMyVektor(0);
+
+	double h = (double)(xEnd - xStart) / schritte;
+
+	cout << "h = " << h << endl;
+	CMyVektor y = yStart;
+	double x = xStart;
+	double xTest = x + h;
+	for (unsigned schritt = 0; x < xEnd; x = xTest, schritt++)
 	{
-		if (_fDGLnterOrdnung == nullptr)
-			return;
+		cout << endl << endl;
+
+		cout << "Schritt " << schritt << ":" << endl;
+		cout << "x = " << x << endl;
+		cout << "y = " << y.ToString() << endl;
+		CMyVektor yStrich = ableitungen(y, x);
+		cout << "y'_orig = " << yStrich.ToString() << endl;
+		//y(x) + h * y'mittel; y'mittel = 0.5 * f(x0, y(x0)) + f(x1, y1)
+		
+		CMyVektor yTest = y + yStrich * h;
+		xTest = x + h;
+		cout << endl << "y_Test = " << yTest.ToString() << endl;
+		CMyVektor yTestStrich = ableitungen(yTest, xTest);
+		cout << "y'_Test = " << yTestStrich.ToString() << endl;
+
+		CMyVektor yMittel = (yStrich + yTestStrich) * 0.5;
+		cout << endl << "y'_Mittel = " << yMittel.ToString() << endl;
+		y = y + yMittel * h;
 
 	}
 
-	if (_fDGLSystem == nullptr)
-		return;
+	cout << endl << endl << "Ende bei" << endl;
+	cout << "x = " << x << endl;
+	cout << "y = " << y.ToString() << endl;
+
+	return y;
 }
