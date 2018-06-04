@@ -8,11 +8,21 @@ CMyVektor C_DGLSolver::ableitungen(CMyVektor y, double x)
 		if (_fDGLnterOrdnung == nullptr)
 			return CMyVektor(0);
 
-		//TODO: Umwandeln
-		if (_fDGLSystem == nullptr) //schon umgeformt?
+		//Umwandeln
+		CMyVektor neu(y.GetDimension());
+		for (int i = 1; i < y.GetDimension(); i++)
 		{
-
+			if (i != y.GetDimension() - 1) //yi == y'i+1
+			{
+				neu.Set(i - 1, y[i]);
+			}
+			else //last
+			{
+				neu.Set(i, _fDGLnterOrdnung(y, x));
+			}
 		}
+
+		return neu;
 	}
 	
 	if (_fDGLSystem == nullptr)
@@ -41,16 +51,35 @@ C_DGLSolver::~C_DGLSolver()
 
 void C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
 {
-	//TODO:euler
-	if (_istDGLhoehererOrdnung)
-	{
-		if (_fDGLnterOrdnung == nullptr)
-			return;
+	//euler
+	if (!_istDGLhoehererOrdnung &&_fDGLSystem == nullptr || _istDGLhoehererOrdnung && _fDGLnterOrdnung == nullptr)
+		return;
 
+	double h = (double)(xEnd - xStart) / schritte;
+
+	cout << "h = " << h << endl;
+	CMyVektor y = yStart;
+	double x = xStart;
+	for (unsigned schritt = 0; x < xEnd; x += h, schritt++)
+	{
+		cout << endl << endl;
+
+
+		cout << "Schritt " << schritt << ":" << endl;
+		cout << "x = " << x << endl;
+		cout << "y = " << y.ToString() << endl;
+		//y(x) + h * y'(x)
+		//y(x) + h * f(x,y)
+		//y(x) + h * ableitung(y,x);
+		CMyVektor yStrich = ableitungen(y, x);
+		cout << "y' = " << yStrich.ToString() << endl;
+		y = y + yStrich * h;
 	}
 
-	if (_fDGLSystem == nullptr)
-		return;
+	cout << endl << endl << "Ende bei" << endl;
+	cout << "x = " << x << endl;
+	cout << "y = " << y.ToString() << endl;
+	
 }
 
 void C_DGLSolver::heunVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
