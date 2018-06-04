@@ -32,9 +32,10 @@ int main()
 	yStart.Set(0, 1);
 	yStart.Set(1, -1);
 	yStart.Set(2, 2);
-	int schritte = 10;
-	//CMyVektor ergebnis = dglSolver.eulerVerfahren(1, 2, schritte, yStart);
-	CMyVektor ergebnis = dglSolver.heunVerfahren(1, 2, schritte, yStart);
-	cout << 0.5 - ergebnis[0] << endl;
+	int schritte = 1000;
+	CMyVektor ergebnisEuler = dglSolver.eulerVerfahren(1, 2, schritte, yStart);
+	CMyVektor ergebnisHeun = dglSolver.heunVerfahren(1, 2, schritte, yStart);
+	cout << "Abweichung bei Euler bei " << schritte << " Schritten: " << ergebnisEuler[0] - 0.5 << endl;
+	cout << "Abweichung bei Heun bei " << schritte << " Schritten: " << ergebnisHeun[0] - 0.5 << endl;
 	system("PAUSE");
 }

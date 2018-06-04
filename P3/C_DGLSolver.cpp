@@ -12,15 +12,9 @@ CMyVektor C_DGLSolver::ableitungen(CMyVektor y, double x)
 		CMyVektor neu(y.GetDimension());
 		for (int i = 1; i < y.GetDimension(); i++)
 		{
-			if (i != y.GetDimension() - 1) //yi == y'i+1
-			{
-				neu.Set(i - 1, y[i]);
-			}
-			else //last
-			{
-				neu.Set(i, _fDGLnterOrdnung(y, x));
-			}
+			neu.Set(i - 1, y[i]); //yi-1 = y'i
 		}
+		neu.Set(y.GetDimension() - 1, _fDGLnterOrdnung(y, x));
 
 		return neu;
 	}
