@@ -83,7 +83,7 @@ CMyVektor C_DGLSolver::heunVerfahren(int xStart, int xEnd, int schritte, CMyVekt
 	if (!_istDGLhoehererOrdnung &&_fDGLSystem == nullptr || _istDGLhoehererOrdnung && _fDGLnterOrdnung == nullptr)
 		return CMyVektor(0);
 
-	double h = (double)(xEnd - xStart) / schritte;
+	const double h = (double)(xEnd - xStart) / schritte;
 
 	cout << "h = " << h << endl;
 	CMyVektor y = yStart;
