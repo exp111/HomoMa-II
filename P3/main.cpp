@@ -30,9 +30,11 @@ int main()
 	C_DGLSolver dglSolver(fDGLSystemDritterOrdnung);
 	CMyVektor yStart(3);
 	yStart.Set(0, 1);
-	yStart.Set(1, 1);
+	yStart.Set(1, -1);
 	yStart.Set(2, 2);
-	CMyVektor ergebnis = dglSolver.eulerVerfahren(1, 2, 10, yStart);
+	int schritte = 10;
+	//CMyVektor ergebnis = dglSolver.eulerVerfahren(1, 2, schritte, yStart);
+	CMyVektor ergebnis = dglSolver.heunVerfahren(1, 2, schritte, yStart);
 	cout << 0.5 - ergebnis[0] << endl;
 	system("PAUSE");
 }
