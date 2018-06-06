@@ -54,7 +54,7 @@ CMyVektor C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVek
 	cout << "h = " << h << endl;
 	CMyVektor y = yStart;
 	double x = xStart;
-	for (unsigned schritt = 0; x < xEnd; x += h, schritt++)
+	for (unsigned schritt = 0; schritt < schritte; x += h, schritt++)
 	{
 		cout << endl << endl;
 
@@ -79,17 +79,17 @@ CMyVektor C_DGLSolver::eulerVerfahren(int xStart, int xEnd, int schritte, CMyVek
 
 CMyVektor C_DGLSolver::heunVerfahren(int xStart, int xEnd, int schritte, CMyVektor yStart)
 {
-	//TODO:Heun
+	//Heun
 	if (!_istDGLhoehererOrdnung &&_fDGLSystem == nullptr || _istDGLhoehererOrdnung && _fDGLnterOrdnung == nullptr)
 		return CMyVektor(0);
 
-	const double h = (double)(xEnd - xStart) / schritte;
+	const long double h = (double)(xEnd - xStart) / schritte;
 
 	cout << "h = " << h << endl;
 	CMyVektor y = yStart;
 	double x = xStart;
 	double xTest = x + h;
-	for (unsigned schritt = 0; x < xEnd; x = xTest, schritt++)
+	for (unsigned schritt = 0; schritt < schritte; x = xTest, schritt++)
 	{
 		cout << endl << endl;
 
