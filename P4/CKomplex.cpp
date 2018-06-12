@@ -1,0 +1,54 @@
+#include "CKomplex.h"
+
+
+CKomplex::CKomplex()
+{
+}
+
+CKomplex::CKomplex(double a, double b)
+{
+	_realTeil = a;
+	_imagTeil = b;
+}
+
+CKomplex::CKomplex(double phi)
+{
+	_realTeil = cos(phi);
+	_imagTeil = sin(phi);
+}
+
+CKomplex::~CKomplex()
+{
+}
+
+double CKomplex::re()
+{
+	return _realTeil;
+}
+
+double CKomplex::im()
+{
+	return _imagTeil;
+}
+
+CKomplex CKomplex::operator+(CKomplex b)
+{
+	return CKomplex(re() + b.re(), im() + b.im());
+}
+
+CKomplex CKomplex::operator*(CKomplex b)
+{
+	return CKomplex(re() * b.re() - im() * b.im(), re() * b.im() + im() * b.re());
+}
+
+CKomplex CKomplex::operator*(double b)
+{
+	return CKomplex(re() * b, im() * b);
+}
+
+double CKomplex::abs()
+{
+	return sqrt(re() * re() + im() * im());
+}
+
+
