@@ -14,10 +14,13 @@ public:
 
 	double re();
 	double im();
+	void Set(double a, double b);
 
 	CKomplex operator+(CKomplex b);
+	void operator+=(CKomplex b);
 	CKomplex operator*(CKomplex b);
 	CKomplex operator*(double b);
+	void operator*=(double b);
 
 	double abs();
 };
