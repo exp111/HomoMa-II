@@ -38,8 +38,7 @@ vector<CKomplex>  werte_einlesen(char *dateiname)
 
 void werte_ausgeben(char *dateiname, vector<CKomplex> werte, double epsilon = -1)
 {
-	int i;
-	int N = werte.size();
+	size_t N = werte.size();
 	// File oeffnen
 	ofstream fp;
 	fp.open(dateiname);
@@ -47,7 +46,7 @@ void werte_ausgeben(char *dateiname, vector<CKomplex> werte, double epsilon = -1
 	fp << N << endl;
 	// Eintraege in das File schreiben
 	fp.precision(10);
-	for (i = 0; i < N; i++)
+	for (size_t i = 0; i < N; i++)
 	{
 		if (werte[i].abs() > epsilon)
 			fp << i << "\t" << werte[i].re() << "\t" << werte[i].im() << endl;
@@ -59,7 +58,7 @@ void werte_ausgeben(char *dateiname, vector<CKomplex> werte, double epsilon = -1
 double maxAbweichung(vector<CKomplex> base, vector<CKomplex> compare)
 {
 	double highest = 0;
-	for (int i = 0; i < base.size(), i < compare.size(); i++)
+	for (size_t i = 0; i < base.size(), i < compare.size(); i++)
 	{
 		double current = base[i].abs() - compare[i].abs();
 		if (current > highest)
@@ -101,15 +100,15 @@ int main()
 
 vector<CKomplex> fourierTransformation(vector<CKomplex> input, bool doHinTransformation)
 {
-	unsigned N = input.size();
+	size_t N = input.size();
 	vector<CKomplex> result = vector<CKomplex>(N);
 	double factor = 1 / sqrt(N);
 	if (doHinTransformation)
 	{
-		for (int n = 0; n < N; n++)
+		for (size_t n = 0; n < N; n++)
 		{
 			result[n].Set(0,0);
-			for (int k = 0; k < N; k++)
+			for (size_t k = 0; k < N; k++)
 			{
 				//fk * e^-j((2pi*k*n)/N)
 				result[n] += input[k] * CKomplex((-2 * M_PI * k * n) / N);
@@ -119,10 +118,10 @@ vector<CKomplex> fourierTransformation(vector<CKomplex> input, bool doHinTransfo
 	}
 	else //Rück
 	{
-		for (int k = 0; k < N; k++)
+		for (size_t k = 0; k < N; k++)
 		{
 			result[k].Set(0,0);
-			for (int n = 0; n < N; n++)
+			for (size_t n = 0; n < N; n++)
 			{
 				//cn * e^j((2pi*k*n)/N)
 				result[k] += input[n] * CKomplex((2 * M_PI * k * n) / N);
