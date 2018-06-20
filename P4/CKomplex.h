@@ -12,8 +12,8 @@ public:
 	CKomplex(double phi);
 	~CKomplex();
 
-	double re();
-	double im();
+	double re() const;
+	double im() const;
 	void Set(double a, double b);
 
 	CKomplex operator+(CKomplex b);

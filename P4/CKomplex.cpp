@@ -21,12 +21,12 @@ CKomplex::~CKomplex()
 {
 }
 
-double CKomplex::re()
+double CKomplex::re() const
 {
 	return _realTeil;
 }
 
-double CKomplex::im()
+double CKomplex::im() const
 {
 	return _imagTeil;
 }

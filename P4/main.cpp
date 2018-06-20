@@ -60,7 +60,8 @@ double maxAbweichung(vector<CKomplex> base, vector<CKomplex> compare)
 	double highest = 0;
 	for (size_t i = 0; i < base.size(), i < compare.size(); i++)
 	{
-		double current = compare[i].abs() - base[i].abs();
+		//(out - in).abs() = (out - (in * -1)).abs()
+		double current = abs((compare[i] + (base[i] * -1)).abs());
 		if (current > highest)
 			highest = current;
 	}
