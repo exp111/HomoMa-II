@@ -13,7 +13,7 @@ CZufall::~CZufall()
 
 int CZufall::wert(int a, int b)
 {
-	return (rand() % (b - a)) + a;
+	return (rand() % (b - a + 1)) + a;
 }
 
 void CZufall::initialisiere(int n)
@@ -23,7 +23,7 @@ void CZufall::initialisiere(int n)
 
 vector<int> CZufall::test(int a, int b, int N)
 {
-	vector<int> ret(b - a);
+	vector<int> ret(b - a + 1);
 	for (int i = 0; i < N; i++)
 	{
 		ret[wert(a, b) - a]++;
@@ -33,7 +33,7 @@ vector<int> CZufall::test(int a, int b, int N)
 
 vector<int> CZufall::test_falsch(int a, int b, int N)
 {
-	vector<int> ret(b - a);
+	vector<int> ret(b - a + 1);
 	for (int i = 0; i < N; i++)
 	{
 		srand(time(NULL));
